@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+<title>Mini Juego</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* ESCENARIO */
+#game {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: url("fondo.jpeg") no-repeat center bottom;
+  background-size: cover;
+}
+
+/* JUGADOR */
+#player {
+  position: absolute;
+  width: 100px;
+  height: 420px;
+  background: url("Pink_Monster.png") no-repeat center;
+  background-size: contain;
+  left: 50px;
+  bottom: 50px;
+}
+
+/* ICONOS */
+.icon {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+#cartaIcon {
+  background-image: url("carta.png");
+  left: 56%;
+  bottom: 260px;
+}
+
+#camaraIcon {
+  background-image: url("camara.png");
+  left: 30%;
+  bottom: 260px;
+}
+
+#playIcon {
+  background-image: url("play.png");
+  right: 10%;
+  bottom: 260px;
+}
+
+/* CONTROLES */
+#controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: grid;
+  grid-template-columns: 60px 60px 60px;
+  gap: 10px;
+}
+
+.control-btn {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 192, 203, 0.9);
+  border-radius: 10px;
+  text-align: center;
+  line-height: 60px;
+  font-size: 20px;
+  user-select: none;
+}
+
+/* MODALES */
+.modal {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: rgb(255, 160, 228);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+#letter {
+  color:white;
+  font-size: 18px;
+  text-align: center;
+}
+
+#cameraPreview img {
+  max-width: 100%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="game">
+  <div id="player"></div>
+  <div id="platform"></div>
+
+  <div id="cartaIcon" class="icon"></div>
+  <div id="camaraIcon" class="icon"></div>
+  <div id="playIcon" class="icon"></div>
+
+  <!-- CONTROLES -->
+  <div id="controls">
+    <div class="control-btn" id="left">←</div>
+    <div class="control-btn" id="up">↑</div>
+    <div class="control-btn" id="right">→</div>
+  </div>
+</div>
+
+<!-- MODALES -->
+<div id="letterModal" class="modal">
+  <div class="modal-content" id="letter"><br> FELIZ CUMPLEAÑOOOOS SARAHI 💌<br>
+    Sarahí feliz cumpleaños y felices 19 años. Espero hoy tengas un lindo día con tu familia ya sea que salgas o no <br>
+    tu disfruta tu mañana-tarde-noche, yo te deseo lo mejor del mundo y espero te haya gustado mi pequeña sorpresa.<br>
+    Anoche tu me dijiste que no es un día especial por qué solamente "naciste" que aún que quizá lo dices de broma <br>
+    para mí si es muy importante esta fecha. Estoy seguro que para mucha gente esta fecha es muy especial <br>
+    y les importas muchísimo, y te aseguro que más de uno guardo tu cumpleaños en su calendario jsjsjsjsjs.<br>
+    Yo sé que mucha gente te va a felicitar así como igual te mandarán sus más grandes deseos y quizá igual <br>
+    y te tienen muchos regalos y un pastelito jsjsjsjs. <br><br>
+    Estando allá no te puedo felicitar de la manera adecuada o no puedo abrazarte y apapacharte como yo quisiese,<br>
+    pero quiero demostrarte en palabras lo importante que eres y has sido para mí todo este tiempo.<br><br>
+    Tu has sido para mí una alegría en mi alma, me has hecho sonreír, pasar momentos muy lindos y a mí corazon <br> 
+    lo has tratado con muchísimo cariño. Me has acompañado todo este tiempo y siento que ambos hemos aprendido tanto <br>
+    individualmente como pareja. Me preocupaba desde un principio equivocarme y perderte por algo tan tonto o muy obvio,<br>
+    por apresurarme y no saber actuar. Pues así como tú yo sé que te amo y se que mi corazón es feliz a tu lado<br> 
+    pero a veces no sé el como demostrarlo, no sé cómo arrancarme el corazón y que pudieses ver el gran cariño <br>
+    que te eh guardado ahí dentro, que en mi corazón tu estás presente todo el tiempo. Aún sigo aprendiendo a amar <br>
+    y quisiera hacer a tu lado como pareja y después el destino nos tendrá algo preparado, pero mientras quiero seguir <br>
+    conociéndote y descubrir el mundo junto a ti.<br><br>
+    Tenemos más de un año conociéndonos y no me arrepiento de haberte conocido ni mucho menos en escoger a la persona<br>
+    la cual yo estoy seguro que quiero pasar toda mi vida contigo.<br>
+    Eres realmente muy muy muy importante para mí y se que para otras personas lo has Sido también, <br>
+    tienes valores muy lindos así como para que a la gente le agrades tanto, y por eso mismo eres tan importante en la vida <br>
+    de todos eres importante en mi vida, tu vida es muy importante. Disfruta cada momento sea bueno o malo se que <br>
+    podrás seguir adelante.<br><br>
+    Feliz cumpleaños mi niña hermosa<br>
+    Te amo como no tienes idea💞
+<br> 
+</div>
+</div>
+
+<div id="cameraModal" class="modal">
+  <div class="modal-content" id="cameraPreview">
+    <center><h3>Un pequeño recordatorio de cuantas <br> aventuras tuvimos juntos<h3>
+    <a href="https://drive.google.com/drive/folders/1H4jYFm0WcsyvLYojAGSHa1UnOkGCpiWC"> besitos peshiosha </a>
+    <h3>Todas las citas que hemos tenido eh preferido por mucho vivir el momento <br>
+        pero ver estos recuerdos me devuelven esa felicidad</h3>
+</center>
+  </div>
+</div>
+
+<div id="musicModal" class="modal">
+  <div class="modal-content">
+    <h3>Canciones que me hacen pensar en ti my love ❤️ </h3>
+    <center>
+    <a href="https://www.youtube.com/watch?v=5e1zT7miep8&list=RDEM0jNaR4diD9ATInMw9lVCTA&index=3" target="_blank">
+      🎵 risees the mooon
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=kJfxOYNq5l8" target="_blank">
+      🎵 惑星の泪 - ichiko aoba
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=7Tzq6isGOjg&list=RDEM0jNaR4diD9ATInMw9lVCTA&index=12" target="_blank">
+      🎵 cats in the cold
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=AJdTBPuZkHU&list=RDEM0jNaR4diD9ATInMw9lVCTA&index=19" target="_blank">
+      🎵 Yume Utsutsu
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=f1x_UKH_bQg&list=RDEM0jNaR4diD9ATInMw9lVCTA&index=27" target="_blank">
+      🎵 try again tomorrow
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=S2V6jF79X7Q&list=RDS2V6jF79X7Q&start_radio=1" target="_blank">
+      🎵 La Seine And I
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=XZBB6s1pQBg" target="_blank">
+      🎵 You Are My Sunshine - Kina Grannis
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=j_sG_Juncn8" target="_blank">
+      🎵 Lovers Rock
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=17PqoC-ImfM" target="_blank">
+      🎵 new home
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=bLojUhnV_RQ" target="_blank">
+      🎵  Amor Completo
+    </a><br><br>
+    <a href="https://www.youtube.com/watch?v=P29t0XNAhb8" target="_blank">
+      🎵  te amo y mas
+    </a><br><br>
+   
+    </center>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="Asleep Among Endives.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const player = document.getElementById("player");
+const platform = document.getElementById("platform");
+
+let x = 50;
+let y = 50;
+let vy = 0;
+
+const gravity = 0.8;
+const speed = 4;
+const jumpForce = 19;
+
+let moveLeftFlag = false;
+let moveRightFlag = false;
+let jumpFlag = false;
+let jumping = false;
+let facingRight = true;
+
+/* MÚSICA */
+const music = document.getElementById("bgMusic");
+document.body.addEventListener("touchstart", () => music.play(), { once: true });
+document.body.addEventListener("click", () => music.play(), { once: true });
+
+/* LOOP PRINCIPAL */
+function update() {
+
+  /* MOVIMIENTO HORIZONTAL */
+  if (moveLeftFlag) {
+  x -= speed;
+  if (facingRight) {
+    player.style.transform = "scaleX(-1)";
+    facingRight = false;
+  }
+}
+
+if (moveRightFlag) {
+  x += speed;
+  if (!facingRight) {
+    player.style.transform = "scaleX(1)";
+    facingRight = true;
+  }
+}
+
+
+  /* LÍMITES DE PANTALLA */
+  x = Math.max(0, Math.min(window.innerWidth - 64, x));
+
+  /* SALTO */
+  if (jumpFlag && !jumping) {
+    vy = jumpForce;
+    jumping = true;
+  }
+
+  /* GRAVEDAD */
+  vy -= gravity;
+  y += vy;
+
+  /* SUELO */
+  if (y <= 0) {
+    y = 0;
+    vy = 0;
+    jumping = false;
+  }
+
+  /* COLISIÓN CON PLATAFORMA */
+  const p = platform.getBoundingClientRect();
+  const pl = player.getBoundingClientRect();
+
+  if (
+    pl.bottom >= p.top &&
+    pl.bottom <= p.top + 15 &&
+    pl.right > p.left &&
+    pl.left < p.right &&
+    vy < 0
+  ) {
+    y = window.innerHeight - p.top - pl.height;
+    vy = 0;
+    jumping = false;
+  }
+
+  player.style.left = x + "px";
+  player.style.bottom = y + "px";
+
+  checkInteractions();
+  requestAnimationFrame(update);
+}
+
+/* INTERACCIONES */
+function isColliding(a, b) {
+  const r1 = a.getBoundingClientRect();
+  const r2 = b.getBoundingClientRect();
+  return !(r1.right < r2.left || r1.left > r2.right || r1.bottom < r2.top || r1.top > r2.bottom);
+}
+
+function checkInteractions() {
+  if (isColliding(player, cartaIcon))
+    letterModal.style.display = "flex";
+
+  if (isColliding(player, camaraIcon))
+    cameraModal.style.display = "flex";
+
+  if (isColliding(player, playIcon))
+    musicModal.style.display = "flex";
+}
+
+/* ===== CONTROLES TÁCTILES ===== */
+const leftBtn = document.getElementById("left");
+const rightBtn = document.getElementById("right");
+const upBtn = document.getElementById("up");
+
+leftBtn.addEventListener("touchstart", () => moveLeftFlag = true);
+leftBtn.addEventListener("touchend", () => moveLeftFlag = false);
+
+rightBtn.addEventListener("touchstart", () => moveRightFlag = true);
+rightBtn.addEventListener("touchend", () => moveRightFlag = false);
+
+upBtn.addEventListener("touchstart", () => jumpFlag = true);
+upBtn.addEventListener("touchend", () => jumpFlag = false);
+
+/* ===== CONTROLES TECLADO ===== */
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") moveLeftFlag = true;
+  if (e.key === "ArrowRight") moveRightFlag = true;
+  if (e.key === "ArrowUp") jumpFlag = true;
+});
+
+document.addEventListener("keyup", e => {
+  if (e.key === "ArrowLeft") moveLeftFlag = false;
+  if (e.key === "ArrowRight") moveRightFlag = false;
+  if (e.key === "ArrowUp") jumpFlag = false;
+});
+
+/* CERRAR MODALES */
+document.querySelectorAll(".modal").forEach(m =>
+  m.addEventListener("click", () => m.style.display = "none")
+);
+
+update();
+</script>
+
+
+</body>
+</html>
